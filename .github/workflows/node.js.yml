@@ -19,5 +19,3 @@ jobs:
     - run: npm run build --if-present
     - name: Installing npm packages
       run: npm install check
-    - name: Check npm audit
-      run: npm audit
