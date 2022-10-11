@@ -11,7 +11,7 @@ env:
 #jobs
 jobs:
   deploy-aks:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     name: Deployment to AKS
     steps:
       - name: 'Git Checkout'
