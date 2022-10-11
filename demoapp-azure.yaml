@@ -15,8 +15,8 @@ spec:
         app: demo
     spec:
       containers:
-        - name: demoappimage
-          image: navin009/demoapp:v1
+        - name: navindemo
+          image: demoappcontainerregistery.azurecr.io/navindemo:latest
           ports:
               - containerPort: 3000
 ---
