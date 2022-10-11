@@ -1,5 +1,10 @@
 name: deploy to AKS and test
-on: [push]
+on:
+  workflow_run:
+    workflows: [Node.js CI]
+    types:
+      - completed
+       
 env:
   REGISTRY_NAME: demoappcontainerregistery
   CLUSTER_NAME: demoAKScluster
