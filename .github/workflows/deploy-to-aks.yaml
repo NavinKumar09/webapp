@@ -1,0 +1,45 @@
+name: deploy to AKS and test
+on: [push]
+env:
+  REGISTRY_NAME: demoappcontainerregistery
+  CLUSTER_NAME: demoAKScluster
+  CLUSTER_RESOURCE_GROUP: application-resource-group
+  NAMESPACE: navin-app
+  SECRET: navin-aks-secret
+
+  
+#jobs
+jobs:
+  deploy-aks:
+    runs-on: self-hosted
+    name: Deployment to AKS
+    steps:
+      - name: 'Git Checkout'
+        uses: actions/checkout@v2
+
+      - uses: azure/setup-kubectl@v2.0
+
+      - name: Set the target AKS cluster
+        uses: Azure/aks-set-context@v1
+        with:
+          creds: "${{ secrets.AZURE_CREDENTIALS }}"
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
+      
+      - name: Create image pull secret for ACR
+        uses: Azure/k8s-create-secret@v1.1
+        with:
+          container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          namespace: ${{ env.NAMESPACE }}
+          secret-name: ${{ env.SECRET }}
+
+      - name: Deploy to AKS
+        uses: Azure/k8s-deploy@v1
+        with:          
+          manifests: |
+            demoapp-azure.yaml
+          imagepullsecrets: |
+            ${{ env.SECRET }}
+          namespace: ${{ env.NAMESPACE }}
