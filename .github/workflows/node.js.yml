@@ -19,3 +19,18 @@ jobs:
     - run: npm run build --if-present
     - name: Installing npm packages
       run: npm install check
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: demoappContainerRegistery
+        # Container registry password
+        password: B4DsZte0Hbuy2M5=eR2=fTmn+0bb81l7 
+        # Container registry server url
+        login-server: demoappcontainerregistery.azurecr.io
+        
+        
+    - name: Docker build and push
+      run: |
+        docker build . -t demoappcontainerregistery.azurecr.io/navindemo:latest
+        docker push demoappcontainerregistery.azurecr.io/navindemo:latest
