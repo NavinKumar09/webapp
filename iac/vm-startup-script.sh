@@ -5,8 +5,8 @@ sudo apt install git -y
 sudo apt install npm -y
 
 #Ops Agent Installation
-# curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
-# sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+sudo bash add-google-cloud-ops-agent-repo.sh --also-install
 
 git clone https://github.com/NavinKumar09/webapp.git
 cd webapp
