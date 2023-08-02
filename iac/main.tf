@@ -136,34 +136,6 @@ resource "google_compute_global_forwarding_rule" "forwarding_rule_public" {
   target                = google_compute_target_http_proxy.target_http_proxy_public.id
 }
 
-module "agent_policy" {
-  source     = "terraform-google-modules/cloud-operations/google//modules/agent-policy"
-  version    = "~> 0.2.3"
-
-  project_id = "mcmp-integration-qa"
-  policy_id  = "ops-agents-example-policy"
-  agent_rules = [
-    {
-      type               = "ops-agent"
-      version            = "current-major"
-      package_state      = "installed"
-      enable_autoupgrade = true
-    },
-  ]
-  group_labels = [
-    {
-      env = "prod"
-      app = "myproduct"
-    }
-  ]
-  os_types = [
-    {
-      short_name = "ubuntu"
-      # version    = "8"
-    },
-  ]
-}
-
 output "env" {
   value = data.external.env.result
 }
