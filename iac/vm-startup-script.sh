@@ -1,6 +1,8 @@
 #!/bin/bash
 sudo apt update
-sudo apt install nodejs
+sudo apt install nodejs -y
+sudo apt install git -y
+sudo apt install npm -y
 
 #Ops Agent Installation
 # curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
